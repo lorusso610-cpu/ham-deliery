@@ -1,0 +1,271 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #ededee;
+    --bg-secondary: #ffffff;
+    --bg-elevated: #e4e4e6;
+    --text-primary: #121212;
+    --text-secondary: #68686e;
+    --border-color: #e2e2e5;
+  }
+
+  .dark {
+    --bg-primary: #0b0b0d;
+    --bg-secondary: #141417;
+    --bg-elevated: #1c1c20;
+    --text-primary: #f4f4f6;
+    --text-secondary: #96969e;
+    --border-color: #252529;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: -0.015em;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   MICRO-INTERAZIONI & ANIMAZIONI GESTIONALI (ERP / CRM / SaaS)
+   ============================================================================ */
+
+/* 1. Skeleton Shimmer */
+@keyframes shimmerSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(161, 161, 170, 0.08) 25%,
+    rgba(161, 161, 170, 0.22) 50%,
+    rgba(161, 161, 170, 0.08) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSweep 1.6s infinite linear;
+}
+
+/* 2. Row Insert & Optimistic UI Highlight (1.5s) */
+@keyframes rowInsertFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.99);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.45);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.28);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+.animate-row-insert {
+  animation: rowInsertFade 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Row Hover Highlight (60ms) */
+.erp-row-hover {
+  transition: transform 65ms ease-out, background-color 65ms ease-out, box-shadow 120ms ease-out;
+}
+.erp-row-hover:hover {
+  transform: translateY(-1px);
+}
+
+/* 3. Modal Zoom (0.95 -> 1.0, 165ms) & Backdrop Fade */
+@keyframes modalZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes backdropFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.animate-modal-zoom {
+  animation: modalZoomIn 170ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-backdrop-fade {
+  animation: backdropFadeIn 150ms ease-out forwards;
+}
+
+/* 4. Validation Shake (3-4px horizontal shake, 220ms) */
+@keyframes validationShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-4px);
+  }
+  40% {
+    transform: translateX(4px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+.animate-validation-shake {
+  animation: validationShake 230ms cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+/* Autocomplete / Dropdown Expand (scaleY + translateY(-4px), 130ms) */
+@keyframes dropdownExpand {
+  0% {
+    opacity: 0;
+    transform: translateY(-4px) scaleY(0.96);
+    transform-origin: top;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    transform-origin: top;
+  }
+}
+.animate-dropdown-expand {
+  animation: dropdownExpand 140ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 5. Toast Slide-In & Timer Progress Bar */
+@keyframes toastSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(24px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes toastTimerShrink {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+.animate-toast-in {
+  animation: toastSlideIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-toast-timer {
+  animation: toastTimerShrink 3.8s linear forwards;
+}
+
+/* SVG Checkmark Draw (stroke-dashoffset) */
+@keyframes svgCheckDraw {
+  0% {
+    stroke-dasharray: 28;
+    stroke-dashoffset: 28;
+  }
+  100% {
+    stroke-dasharray: 28;
+    stroke-dashoffset: 0;
+  }
+}
+.animate-svg-check {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 0;
+  animation: svgCheckDraw 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Badge Counter Pop (Spring scale) */
+@keyframes badgePop {
+  0% {
+    transform: scale(0.82);
+  }
+  55% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-badge-pop {
+  animation: badgePop 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 6. Kanban Card Lift */
+.erp-card-lift {
+  transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.erp-card-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* 7. Empty State Subtle Float */
+@keyframes emptyStateFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.animate-empty-float {
+  animation: emptyStateFloat 3.4s ease-in-out infinite;
+}
+
+/* Custom thin scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(113, 113, 122, 0.3);
+  border-radius: 9999px;
+}
+
+/* Reset per divIcon di Leaflet */
+.ham-hq-pin,
+.ham-stop-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(161, 161, 170, 0.5);
+}
